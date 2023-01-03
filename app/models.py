@@ -59,13 +59,13 @@ class LeaveApplication(models.Model):
     leave_approval_date = models.DateField(blank=True, null=True)
     user = models.ForeignKey(AppUser, models.DO_NOTHING, blank=True, null=True)
     leave_status = models.CharField(max_length=45, blank=True, null=True)
-
+    leave_description = models.CharField(max_length=100, blank=True, null=True)
  
 
 class LeaveType(models.Model):
     leavetype_id = models.AutoField(primary_key=True)
     leave_name = models.CharField(max_length=45, blank=True, null=True)
-    leave_description = models.CharField(max_length=100, blank=True, null=True)
+    
 
   
 
