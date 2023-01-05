@@ -12,5 +12,6 @@ urlpatterns = [
     path('profile/',views.profile,name='profile'),
     path('profileadmin/',views.profileadmin,name='profileadmin'),
     path('createemp/',views.createemp,name='createemp'),
+    path('createemp/saveemp/',views.saveemp,name='saveemp'),
 
 ]
