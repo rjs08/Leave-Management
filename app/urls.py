@@ -15,4 +15,7 @@ urlpatterns = [
     path('employee_update/',views.updateemp,name='updateemp'), 
     path('leave_applications/',views.empleaves,name='updateemp'),
     path('leaves_structure/',views.leaves_structure,name='leaves_structure'),
+
+    path('leaveApplication/',views.leaveApplication,name='leaveApplication'),
+    path('leaveStructure/',views.leaveStructure,name='leaveStructure')
 ]

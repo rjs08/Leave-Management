@@ -115,3 +115,47 @@ def empleaves(request):
 
 def leaves_structure(request):
     return render(request, 'emp_leaves_structure.html')
+
+
+
+
+
+def leaveApplication(request):
+    if request.POST:
+        Date_of_application = request.POST["Date_of_application"]
+        Start_date = request.POST["Start_date"]
+        End_date = request.POST["End_date"]
+        Leave_discription = request.POST["Leave_discription"]
+        Leave_type = request.POST["Leave_type"]
+
+        Leave_status='pending'
+        userid = request.session['user_id']
+        
+        try:
+            leaveApplication = LeaveApplication(date_of_application=Date_of_application,start_date=Start_date,end_date=End_date,leave_status=Leave_status,user_id=userid,leave_description=Leave_discription,leave_type=Leave_type)
+            leaveApplication.save()
+            messages.success(request,"leave application form submmited sucessfully")
+        except:
+            messages.error(request,"leave application submission failed")
+        
+
+    return render(request,'leaveapplication.html')
+
+
+def leaveStructure(request):
+    userid = request.session['user_id']
+    levstr = Leaves.objects.filter(user=userid)
+    emp = Employee.objects.filter(user=userid)
+    empdet = EmployeeDetails.objects.filter(user=userid)
+    levfor=LeaveApplication.objects.filter(user=userid)
+    
+
+    context={
+    'levstr':levstr,
+    'emp':emp,
+    'empdet':empdet,
+    'levfor':levfor
+    }
+
+   
+    return render(request,'leaveStructure.html',context)
