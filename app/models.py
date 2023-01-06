@@ -52,19 +52,21 @@ class EmployeeDetails(models.Model):
 
 class LeaveApplication(models.Model):
     application_id = models.AutoField(primary_key=True)
-    leavetype = models.ForeignKey('LeaveType', models.DO_NOTHING, blank=True, null=True)
+    # leavetype = models.ForeignKey('LeaveType', models.DO_NOTHING, blank=True, null=True)
     date_of_application = models.DateField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     leave_approval_date = models.DateField(blank=True, null=True)
     user = models.ForeignKey(AppUser, models.DO_NOTHING, blank=True, null=True)
     leave_status = models.CharField(max_length=45, blank=True, null=True)
+    leave_type = models.CharField(max_length=45, blank=True, null=True)
     leave_description = models.CharField(max_length=100, blank=True, null=True)
+    
  
 
-class LeaveType(models.Model):
-    leavetype_id = models.AutoField(primary_key=True)
-    leave_name = models.CharField(max_length=45, blank=True, null=True)
+# class LeaveType(models.Model):
+#     leavetype_id = models.AutoField(primary_key=True)
+#     leave_name = models.CharField(max_length=45, blank=True, null=True)
     
 
   

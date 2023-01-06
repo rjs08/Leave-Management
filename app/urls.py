@@ -11,6 +11,8 @@ urlpatterns = [
     path('logout/',views.logout,name='logout'),
     path('profile/',views.profile,name='profile'),
     path('profileadmin/',views.profileadmin,name='profileadmin'),
-    path('createemp/',views.createemp,name='createemp'),
+    #path('createemp/',views.createemp,name='createemp'),
+    path('leaveApplication/',views.leaveApplication,name='leaveApplication'),
 
+    path('leaveStructure/',views.leaveStructure,name='leaveStructure')
 ]
