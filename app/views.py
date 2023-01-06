@@ -15,7 +15,7 @@ def emphome(request):
  
     username = request.POST["username"]
     password = request.POST["password"]
-    print(username)
+
     m=sql.connect(host="localhost",user="root",passwd="root",database='project1')
     cursor=m.cursor()
     query="select * from app_appuser where username='{}' and password='{}' ".format(username,password)
@@ -23,32 +23,18 @@ def emphome(request):
     found=cursor.fetchall()    
     
     if(found):
-        request.session['user_id']=-1
-        #print(request.session['user_id'])
-        request.session['user_id']=found[0][0]
-        #d={'username':username}
-        #print("app user id",found[0][0])     to see on console which user login
-        #return render(request,'emphome.html')
-        return HttpResponseRedirect('/abc',request)
+        userid=found[0][0]
+        access_label=found[0][3]
+
+        request.session['user_id']=userid
+
+        if access_label==1:
+            return HttpResponseRedirect('/employee',request)
+        else:
+            return HttpResponseRedirect('/home',request)
     else:
         messages.info(request,"wrong credentials")
-        return HttpResponseRedirect('/')
-def abc(request):
-   
-    userid = name = request.session['user_id']
-    
-    m=sql.connect(host="localhost",user="root",passwd="root",database='project1')
-    cursor=m.cursor()
-    query="select access_label from app_appuser where user_id={}".format(userid)
-    print(query)
-    cursor.execute(query)
-    found=cursor.fetchall() 
-    ind=found[0][0]
-    print(ind)
-    if ind==1:
-        return HttpResponseRedirect('/employee',request)
-    else:
-        return HttpResponseRedirect('/adminn',request)
+        return HttpResponseRedirect('/appUser')
 
 def admin(request):
     return render(request,'adminhome.html')
@@ -60,8 +46,8 @@ def logout(request):
     try:
         del request.session['user_id']
     except:
-        return redirect('/')
-    return redirect('/')
+        return redirect('/appUser')
+    return redirect('/appUser')
 
 def profile(request):
     
@@ -111,14 +97,21 @@ def saveemp(request):
 
 
 
-    # date_of_join = request.POST["date_of_join"]
-    # project = request.POST["project"]
-    # employeeDetails = EmployeeDetails(date_of_join=date_of_join,project=project,user=user)
-    # employeeDetails.save()
+    date_of_join = request.POST["date_of_join"]
+    project = request.POST["project"]
+    employeeDetails = EmployeeDetails(date_of_join=date_of_join,project=project,user_id=user)
+    employeeDetails.save()
 
 
 
     messages.info(request,"emp registered")
     return HttpResponse('emp registered')
 
+def updateemp(request):
+    return render(request, 'empupdate.html')
 
+def empleaves(request):
+    return render(request, 'emp_applied_leaves.html')
+
+def leaves_structure(request):
+    return render(request, 'emp_leaves_structure.html')
