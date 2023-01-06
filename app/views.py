@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render,redirect
 import mysql.connector as sql
 from django.template import loader
@@ -122,7 +123,8 @@ def leaves_structure(request):
 
 def leaveApplication(request):
     if request.POST:
-        Date_of_application = request.POST["Date_of_application"]
+        # Date_of_application = request.POST["Date_of_application"]
+        Date_of_application = datetime.datetime.now()
         Start_date = request.POST["Start_date"]
         End_date = request.POST["End_date"]
         Leave_discription = request.POST["Leave_discription"]
