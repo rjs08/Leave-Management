@@ -61,7 +61,6 @@ def profile(request):
 def profileadmin(request):
     userid = request.session['user_id']
     emp = Employee.objects.filter(user=userid) 
-    print(emp)
     context={'emp':emp}
     return render(request,'profileadmin.html',context)
 
@@ -91,11 +90,6 @@ def saveemp(request):
     employee = Employee(firstname=firstname,lastname=lastname,age=age,gender=gender,email=email,contact=contact,user_id=user)
     employee.save()
 
-    
-
-
-
-
 
 
     date_of_join = request.POST["date_of_join"]
@@ -116,6 +110,27 @@ def empleaves(request):
 
 def leaves_structure(request):
     return render(request, 'emp_leaves_structure.html')
+
+
+def emp_details(request):
+    emps=Employee.objects.all()
+    empsd=EmployeeDetails.objects.all()
+    for e in emps:
+        print(e)
+    context={'emps':emps,'empsd':empsd}
+
+    return render(request, 'emp_details.html',context=context)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
