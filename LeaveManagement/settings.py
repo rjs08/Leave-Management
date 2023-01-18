@@ -15,7 +15,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+TEMPLATE_DIR=os.path.join(BASE_DIR,'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login',
-    'employee',
-    'employer',
+    'app.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,14 +54,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'LeaveManagement.urls'
 
-employee = os.path.join(BASE_DIR,'templates/employee')
-emloyer = os.path.join(BASE_DIR, 'templates/employer')
-login = os.path.join(BASE_DIR, 'templates/login')
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [employee,emloyer,login],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
