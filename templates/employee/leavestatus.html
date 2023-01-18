@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-  <title>Leave Structure</title>
+  <title>Title</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,45 +27,29 @@
     <!-- place footer here -->
   </footer>
   <!-- Bootstrap JavaScript Libraries -->
- 
+
 
   <h3>leave Structure</h3>
 
 
 <table class="table">
   <tr>
-    <th>employee id </th>
-    <th>employee name </th>
-    <th>date of joining </th>
-    <th> leaves consumed </th>
-    <th>levaves remaining </th>
-    <th>total leaves</th>
-    <th>loss of pay</th>
+    <th>date of application</th>
+    <th>leave approval date </th>
+    <th>leave status </th>
   </tr>
-
-
-  {% for i in levfor%}
+  {% for i in levfor %}
   <tr>
-    {% for i in emp%}
-    <td>{{i.emp_id}}</td>
-    <td>{{i.firstname}}{{i.lastname}}</td>
-    {% endfor %}
-  
-    {% for i in empdet%}
-    <td>{{i.date_of_join}}</td>
-    {% endfor %}
-
-    {% for i in levstr%}
-    <td> {{i.leaves_consume}}</td>
-    <td> {{i.leaves_remain}}</td>
-    <td> {{i.total_leaves}}</td>
-    {% endfor %}
-
-
+    <td>{{i.date_of_application}}</td>
+    <td>{{i.leave_approval_date}}</td>
+    <td>{{i.leave_status}}</td>
   </tr>
-  {% endfor %}
+  {% endfor %}  
+   
+
 
 </table>
+
 
 
 

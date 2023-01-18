@@ -16,7 +16,7 @@ def employee(request):
 
 def profile(request):
     
-    userid = name = request.session['user_id']
+    userid = request.session['user_id']
     emp = Employee.objects.filter(user=userid) 
     print(emp)
     context={'emp':emp}
@@ -24,26 +24,35 @@ def profile(request):
 
 
 def leaveApplication(request):
+    
     if request.POST:
         # Date_of_application = request.POST["Date_of_application"]
-        Date_of_application = datetime.datetime.now()
-        Start_date = request.POST["Start_date"]
-        End_date = request.POST["End_date"]
-        Leave_discription = request.POST["Leave_discription"]
-        Leave_type = request.POST["Leave_type"]
-
-        Leave_status='pending'
-        userid = request.session['user_id']
-        
         try:
-            leaveApplication = LeaveApplication(date_of_application=Date_of_application,start_date=Start_date,end_date=End_date,leave_status=Leave_status,user_id=userid,leave_description=Leave_discription,leave_type=Leave_type)
-            leaveApplication.save()
-            messages.success(request,"leave application form submmited sucessfully")
+            Date_of_application = datetime.datetime.now()
+            Start_date = request.POST["Start_date"]
+            End_date = request.POST["End_date"]
+            Leave_discription = request.POST["Leave_discription"]
+            Leave_type = request.POST["Leave_type"]
+            
+            mydata = LeaveType.objects.filter(leave_type=Leave_type)
+            leave_type_id=mydata[0].leave_type_id
+
+            Leave_status='pending'
+            userid = request.session['user_id']
+        
+            if End_date > Start_date:
+                leaveApplication = LeaveApplication(date_of_application=Date_of_application,start_date=Start_date,end_date=End_date,leave_status=Leave_status,user_id=userid,leave_description=Leave_discription,leave_type_id=leave_type_id)
+                leaveApplication.save()
+                messages.success(request,"leave application form submmited sucessfully")
+            else:
+              messages.error(request,"leave application submission failed")  
+
+              
         except:
             messages.error(request,"leave application submission failed")
         
-
-    return render(request,'leaveapplication.html')
+    levty=LeaveType.objects.all()
+    return render(request,'leaveapplication.html',{'levty':levty})
 
 
 def leaveStructure(request):
@@ -63,3 +72,13 @@ def leaveStructure(request):
 
    
     return render(request,'leaveStructure.html',context)
+
+def leaveStatus(request):
+    userid = request.session['user_id']
+    levfor = LeaveApplication.objects.filter(user=userid)
+    context={
+        'levfor' :levfor,
+    }
+
+    return render(request,'leavestatus.html',context)
+
