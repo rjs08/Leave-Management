@@ -8,9 +8,8 @@
 - create virtual environment using command : python -m venv <env-name>
 - to use your environment type command : <env-name>\script\activate
 
-- pip install django==4.1.5
-- pip install mysqlclient==2.1.1
-- pip install mysql-connector-python==8.0.31
+- install all required packages by executing following command
+	pip install -r requirements.txt
 
 - create database named project1 
 - run the migrations
