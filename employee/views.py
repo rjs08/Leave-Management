@@ -7,18 +7,16 @@ import mysql.connector as sql
 from django.template import loader
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
-from login.models import Employee
-from login.models import Leaves
-from login.models import EmployeeDetails
-from login.models import LeaveApplication
+from login.models import Employee,Leaves,EmployeeDetails,LeaveApplication
+
 from employee.forms import leaveForm
 
 
-
+#this function is calling employee_home.html page
 def employee(request):
     return render(request, 'employee_home.html')
 
-
+#this function is fetching employee data from the database and displaying through profile.html
 def profile(request):
     
     userid = request.session['user_id']
@@ -26,7 +24,7 @@ def profile(request):
     context={'employeeProfile':employeeProfile}
     return render(request,'profile.html',context)
 
-
+# this function is taking inputs from the user through leaveapplication form and storing into the database
 def leaveApplication(request):
     
     if request.POST:  
@@ -61,7 +59,7 @@ def leaveApplication(request):
     # levty=LeaveType.objects.all()
     return render(request,'leaveapplication.html',{'form':form})
 
-
+#this function is featching data from the database tables and displaying through leavestructure.html file
 def leaveStructure(request):
     userid = request.session['user_id']
     levaveStructure = Leaves.objects.filter(user=userid)
@@ -80,6 +78,7 @@ def leaveStructure(request):
    
     return render(request,'leaveStructure.html',context)
 
+#this function is featching data from the database tables and displaying through leavestatus.html file
 def leaveStatus(request):
     userid = request.session['user_id']
     levaveApplicationDetails = LeaveApplication.objects.filter(user=userid)
