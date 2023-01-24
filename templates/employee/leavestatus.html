@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-  <title>Leave Structure</title>
+  <title>Title</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,6 +13,8 @@
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
 </head>
 
@@ -28,40 +30,32 @@
   </footer>
   <!-- Bootstrap JavaScript Libraries -->
 
-  <h3>leave Structure</h3>
+
+  <h3>leave Stats</h3>
 
 
-<table class="table">
-  <tr>
-    <th>employee id </th>
-    <th>employee name </th>
-    <th>date of joining </th>
-    <th> leaves consumed </th>
-    <th>levaves remaining </th>
-    <th>total leaves</th>
-    <th>loss of pay</th>
-  </tr>
-  <tr>
-    {% for i in employee%}
-    <td>{{i.emp_id}}</td>
-    <td>{{i.firstname}}{{i.lastname}}</td>
-    {% endfor %}
+<table class="table" id="data_table">
+  <thead>
+    <th>date of application</th>
+    <th>leave approval date </th>
+    <th>leave status </th>
+    
+  </thead>
   
-    {% for i in employeeDetails%}
-  <td>{{i.date_of_join}}</td>
-    {% endfor %}
-
-    {% for i in levaveStructure%}
-    <td> {{i.leaves_consume}}</td>
-    <td> {{i.leaves_remain}}</td>
-    <td> {{i.total_leaves}}</td>
-    {% endfor %}
-
-
+  {% for i in levaveApplicationDetails %}
+  
+  <tr>
+    <td>{{i.date_of_application}}</td>
+    <td>{{i.leave_approval_date}}</td>
+    <td>{{i.leave_status}}</td>
+  
   </tr>
- 
+   
+  {% endfor %} 
+
 
 </table>
+
 
 
 
@@ -72,6 +66,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
   </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+    <script >$(document).ready( function () { $('#data_table').DataTable(); });</script>
+
 </body>
 
 </html>

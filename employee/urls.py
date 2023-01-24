@@ -6,6 +6,7 @@ urlpatterns = [
     path('employee/', views.employee, name='employee'),
     path('profile/',views.profile,name='profile'),
     path('leaveApplication/',views.leaveApplication,name='leaveApplication'),
-    path('leaveStructure/',views.leaveStructure,name='leaveStructure')
+    path('leaveStructure/',views.leaveStructure,name='leaveStructure'),
+    path('leavestatus/',views.leaveStatus,name='leavestatus')
 
 ]

@@ -42,6 +42,9 @@ class LeaveType(models.Model):
     leave_type_id = models.AutoField(primary_key=True)
     leave_type = models.CharField(max_length=45, blank=True, null=True)
 
+    def __str__(self):
+        return self.leave_type
+
 
 class LeaveApplication(models.Model):
     application_id = models.AutoField(primary_key=True)

@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <!doctype html>
 <html lang="en">
 
@@ -61,23 +63,11 @@
                 box-sizing: border-box;
                 border:none;
             }
-
-            .nav-item{
-                background-color: rgb(126, 150, 245);
-                padding:5px;
-                border-radius: 50px;
-                padding-left: 50px;
-                padding-right: 50px;
-                margin-top: 20px;
-                margin-bottom: 20px;
-                margin-right: 20px;
-                margin-left: 20px;
-                border:none
-      } 
-      nav{
-        background-color: rgb(237, 235, 235);
-        
-      }    
+            .errorlist{
+        list-style-type: none;
+        color: red;
+      }  
+            
     </style>
     
     <body>
@@ -93,34 +83,7 @@
           </footer>
           <!-- Bootstrap JavaScript Libraries -->
 
-          <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">SmallDay</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/employee">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/leaveStructure">leave Structure</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/leaveApplication">leave Application</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/logout">Log Out</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+      
           
         
         <center>
@@ -137,31 +100,15 @@
                         </div>
                     {% endfor %}
 
-                            <!-- <td align="right"><b> Date of application : </b></td>
-                            <td><input type="date" name="Date_of_application"></td>
-                        </tr> -->
-                        <tr>
-                            <td align="right"><b> Start date : </b></td>
-                            <td><input type="date" name="Start_date"></td>
-                        </tr>
-                        <tr>
-                            <td align="right"><b> End date : </b></td>
-                            <td><input type="date" name="End_date"></td>
-                        </tr>
-                        <tr>
-                            <td align="right"><b>Leave discription : </b></td>
-                            <td><input type="text" name="Leave_discription"></td>
-                        </tr>
-                        <tr>
-                            <td align="right"><b>Leave type : </b></td>
-                            <td>
-                                <select name="Leave_type">choose
-                                <option value="sick">sick</option>
-                                <option value="personal">personal</option> 
-                               </select>
-                            </td>
-                              
-                        </tr>
+                    {{form.non_field_errors}}
+                
+                    {% for field in form %}
+                    <div>
+                        {{ field.label_tag }}  <span class="errorlist">{{field.errors|striptags}}</span> <br>
+                        {{ field }}
+    
+                    </div>
+                    {% endfor %}
                         
                     </table>
                     <a href="#"><button id="button">Apply</button></a>
@@ -181,3 +128,4 @@
 </body>
 
 </html>
+{% endblock %}
