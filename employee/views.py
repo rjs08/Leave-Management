@@ -7,9 +7,11 @@ import mysql.connector as sql
 from django.template import loader
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
-from login.models import *
-from login.models import *
-from employee.forms import *
+from login.models import Employee
+from login.models import Leaves
+from login.models import EmployeeDetails
+from login.models import LeaveApplication
+from employee.forms import leaveForm
 
 
 
@@ -19,10 +21,9 @@ def employee(request):
 
 def profile(request):
     
-    userid = name = request.session['user_id']
-    emp = Employee.objects.filter(user=userid) 
-    print(emp)
-    context={'emp':emp}
+    userid = request.session['user_id']
+    employeeProfile = Employee.objects.filter(user=userid) 
+    context={'employeeProfile':employeeProfile}
     return render(request,'profile.html',context)
 
 
@@ -63,17 +64,17 @@ def leaveApplication(request):
 
 def leaveStructure(request):
     userid = request.session['user_id']
-    levstr = Leaves.objects.filter(user=userid)
-    emp = Employee.objects.filter(user=userid)
-    empdet = EmployeeDetails.objects.filter(user=userid)
-    levfor=LeaveApplication.objects.filter(user=userid)
+    levaveStructure = Leaves.objects.filter(user=userid)
+    employee = Employee.objects.filter(user=userid)
+    employeeDetails = EmployeeDetails.objects.filter(user=userid)
+    levaveApplicationDetails=LeaveApplication.objects.filter(user=userid)
     
 
     context={
-    'levstr':levstr,
-    'emp':emp,
-    'empdet':empdet,
-    'levfor':levfor
+    'levaveStructure':levaveStructure,
+    'employee':employee,
+    'employeeDetails':employeeDetails,
+    'levaveApplicationDetails':levaveApplicationDetails
     }
 
    
@@ -81,10 +82,10 @@ def leaveStructure(request):
 
 def leaveStatus(request):
     userid = request.session['user_id']
-    levfor = LeaveApplication.objects.filter(user=userid)
+    levaveApplicationDetails = LeaveApplication.objects.filter(user=userid)
 
     context={
-        'levfor' :levfor,
+        'levaveApplicationDetails' :levaveApplicationDetails,
     }
 
     return render(request,'leavestatus.html',context)

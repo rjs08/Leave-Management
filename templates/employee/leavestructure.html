@@ -42,16 +42,16 @@
     <th>loss of pay</th>
   </tr>
   <tr>
-    {% for i in emp%}
+    {% for i in employee%}
     <td>{{i.emp_id}}</td>
     <td>{{i.firstname}}{{i.lastname}}</td>
     {% endfor %}
   
-    {% for i in empdet%}
+    {% for i in employeeDetails%}
   <td>{{i.date_of_join}}</td>
     {% endfor %}
 
-    {% for i in levstr%}
+    {% for i in levaveStructure%}
     <td> {{i.leaves_consume}}</td>
     <td> {{i.leaves_remain}}</td>
     <td> {{i.total_leaves}}</td>
