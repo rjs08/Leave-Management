@@ -16,30 +16,29 @@ def login(request):
     return render(request, 'login.html')
 
 
+# This function is for validate user credentials and depending on access label redirect to home page
 def select(request):
     username = request.POST["username"]
     password = request.POST["password"]
-    print(username)
-    print(password)
-    m = sql.connect(host="localhost", user="root", passwd="root", database='project1')
-    cursor = m.cursor()
-    query = "select * from login_appuser where username='{}' and password='{}' ".format(username, password)
-    cursor.execute(query)
-    found = cursor.fetchall()
 
-    if found:
-        userid = found[0][0]
-        access_label = found[0][3]
-        print(access_label)
-        request.session['user_id'] = userid
+    try:
+        user = AppUser.objects.filter(username=username, password=password).values()
+        if user:
+            userid = user[0]['user_id']
+            access_label = user[0]['access_label']
+            request.session['user_id'] = userid
 
-        if access_label == 1:
-            return HttpResponseRedirect('/employee', request)
+            if access_label == 1:
+                return HttpResponseRedirect('/employee', request)
+            else:
+                return HttpResponseRedirect('/employer', request)
         else:
-            return HttpResponseRedirect('/employer', request)
-    else:
-        messages.info(request, "wrong credentials")
+            messages.info(request, "wrong credentials")
+            return HttpResponseRedirect('/appUser')
+    except Exception as e:
+        messages.error(request, "An error occurred while logging in: " + str(e))
         return HttpResponseRedirect('/appUser')
+
 
 def logout(request):
     try:
@@ -47,4 +46,3 @@ def logout(request):
     except:
         return redirect('/appUser')
     return redirect('/appUser')
-
