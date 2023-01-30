@@ -1,19 +1,18 @@
-from django.shortcuts import render
-
 # Create your views here.
-import datetime
+
 from django.shortcuts import render, redirect
-import mysql.connector as sql
-from django.template import loader
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from login.models import *
 
 
-# Create your views here.
-
+# This function will redirect to login page
 def login(request):
-    return render(request, 'login.html')
+    try:
+        return render(request, 'login.html')
+    except Exception as e:
+        messages.error(request, "An error occurred while logging in: " + str(e))
+        return HttpResponseRedirect('/appUser')
 
 
 # This function is for validate user credentials and depending on access label redirect to home page
@@ -40,9 +39,11 @@ def select(request):
         return HttpResponseRedirect('/appUser')
 
 
+# This function is used to terminate the session
 def logout(request):
     try:
         del request.session['user_id']
-    except:
-        return redirect('/appUser')
+    except Exception as e:
+        messages.error(request, "An error occurred while logging in: " + str(e))
+        return HttpResponseRedirect('/appUser')
     return redirect('/appUser')
