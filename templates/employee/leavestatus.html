@@ -38,8 +38,8 @@
   <thead>
     <th>date of application</th>
     <th>leave approval date </th>
-    <th>leave status </th>
-    
+    <th>leave type</th>
+    <th>leave status </th> 
   </thead>
   
   {% for i in levaveApplicationDetails %}
@@ -47,8 +47,8 @@
   <tr>
     <td>{{i.date_of_application}}</td>
     <td>{{i.leave_approval_date}}</td>
-    <td>{{i.leave_status}}</td>
-  
+    <td>{{i.leave_type}}</td> 
+    <td>{{i.leave_status}}</td> 
   </tr>
    
   {% endfor %} 

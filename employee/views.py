@@ -2,13 +2,12 @@ from django.shortcuts import render
 
 # Create your views here.
 import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect
 import mysql.connector as sql
 from django.template import loader
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
-from login.models import Employee,Leaves,EmployeeDetails,LeaveApplication
-
+from login.models import Employee,Leaves,EmployeeDetails,LeaveApplication,LeaveType
 from employee.forms import leaveForm
 
 
@@ -19,10 +18,13 @@ def employee(request):
 #this function is fetching employee data from the database and displaying through profile.html
 def profile(request):
     
-    userid = request.session['user_id']
-    employeeProfile = Employee.objects.filter(user=userid) 
-    context={'employeeProfile':employeeProfile}
-    return render(request,'profile.html',context)
+    try:
+        userid = request.session['user_id']
+        employeeProfile = Employee.objects.filter(user=userid) 
+        context={'employeeProfile':employeeProfile}
+        return render(request,'profile.html',context)
+    except KeyError:
+        messages.error(request,"you are trying to access a key in a dictionary that does not exist.")
 
 # this function is taking inputs from the user through leaveapplication form and storing into the database
 def leaveApplication(request):
@@ -76,15 +78,19 @@ def leaveStructure(request):
     }
 
    
-    return render(request,'leaveStructure.html',context)
+    return render(request,'leavestructure.html',context)
 
 #this function is featching data from the database tables and displaying through leavestatus.html file
 def leaveStatus(request):
-    userid = request.session['user_id']
-    levaveApplicationDetails = LeaveApplication.objects.filter(user=userid)
 
-    context={
-        'levaveApplicationDetails' :levaveApplicationDetails,
-    }
+    try:
+        userid = request.session['user_id']
+        levaveApplicationDetails = LeaveApplication.objects.filter(user=userid)        
 
-    return render(request,'leavestatus.html',context)
+        context={
+            'levaveApplicationDetails' :levaveApplicationDetails,
+        }
+        return render(request,'leavestatus.html',context)
+    except KeyError:
+        messages.error(request,"you are trying to access a key in a dictionary that does not exist.")
+    
