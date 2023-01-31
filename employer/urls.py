@@ -12,4 +12,6 @@ urlpatterns = [
     path('leaves_structure/',views.leaves_structure,name='leaves_structure'),
     path('emp_details/',views.emp_details,name='emp_details'),
 
+    path('dept_desg/',views.department_designation,name='department_designation')
+
 ]

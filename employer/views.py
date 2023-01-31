@@ -46,8 +46,6 @@ def saveemp(request):
     employee = Employee(firstname=firstname,lastname=lastname,age=age,gender=gender,email=email,contact=contact,user_id=user)
     employee.save()
 
-
-
     date_of_join = request.POST["date_of_join"]
     project = request.POST["project"]
     employeeDetails = EmployeeDetails(date_of_join=date_of_join,project=project,user_id=user)
@@ -58,11 +56,32 @@ def saveemp(request):
     messages.info(request,"emp registered")
     return HttpResponse('emp registered')
 
+def department_designation(request):
+    if request.method == "POST":
+        if 'form1' in request.POST:
+            try:
+                departmentName = request.POST["deptName"]
+                departmentDetails = Department(dept_name=departmentName)
+                departmentDetails.save()
+                messages.success(request,"deptName submission sucessfull")
+            except:
+                messages.error(request,"deptName submission failed")
+        if 'form2' in request.POST:
+            try:
+                designationName = request.POST["dseigName"]
+                designationDetails = Designation(desg_name=designationName)
+                designationDetails.save()
+                messages.success(request,"desgName submission sucessfull")
+            except:
+                messages.error(request,"desgName submission failed")
+
+    return render(request, 'dept_desg.html')
+
 def updateemp(request):
-    return render(request, 'empupdate.html')
+    return render(request,'update_emp.html')
 
 def empleaves(request):
-    return render(request, 'emp_applied_leaves.html')
+    return render(request,'emp_applied_leaves.html')
 
 def leaves_structure(request):
     return render(request, 'emp_leaves_structure.html')
